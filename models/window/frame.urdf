@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<robot name="origins">
+
+  <link name="base_window">
+    <visual>
+      <origin rpy="1.5708 0 1.5708" xyz="0 0 2"/>
+      <geometry>
+        <mesh filename="/meshes/frame.dae"/>
+      </geometry>
+    </visual>
+    <inertial>
+        <mass value="10"/>
+        <inertia ixx="0.015" iyy="0.0375" izz="0.0375" ixy="0" ixz="0" iyz="0"/>
+     </inertial> 
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 1.225"/>
+      <geometry>
+        <box size="2 0.1 0.01"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="base1">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 1.225"/>
+      <geometry>
+        <box size="2 0.1 0.01"/>
+      </geometry>
+    </visual>
+    <inertial>
+        <mass value="10"/>
+        <inertia ixx="0.015" iyy="0.0375" izz="0.0375" ixy="0" ixz="0" iyz="0"/>
+     </inertial> 
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 1.225"/>
+      <geometry>
+        <box size="2 0.1 0.01"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="connect2" type="fixed">
+    <parent link="base_window"/>
+    <child link="base1"/>
+    <origin xyz="0 0 1.7"/>
+  </joint>
+
+
+
+    
+</robot>
+

@@ -1,0 +1,306 @@
+<?xml version='1.0'?>
+<sdf version='1.4'>
+  <model name="actuatorBot">
+    <static>false</static>
+
+    <link name='base'>
+          <pose>0 0 .0025 0 0 0</pose>
+          <collision name='collision'>
+            <geometry>
+              <box>
+                <size>0.14 0.26 0.005</size>
+              </box>
+            </geometry>
+          </collision>
+
+          <visual name='visual'>
+            <pose>0 0 0 0 0 1.57079633</pose>
+            <geometry>
+              <mesh>
+                <uri>model://actuatorBot/meshes/base.dae</uri>
+              </mesh>
+            </geometry>
+          </visual>
+      </link>
+      <link name="carriage1">
+        <pose>0 0.06 0.0125 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.12 0.03 0.015</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name='visual'>
+            <pose>-0.0025 0 0 0 0 0.005</pose>
+            <geometry>
+              <mesh>
+                <uri>model://actuatorBot/meshes/carriage.dae</uri>
+              </mesh>
+            </geometry>
+          </visual>
+      </link>
+
+    <link name="carriage2">
+        <pose>0 -0.06 0.0125 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.12 0.03 0.015</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name='visual'>
+            <pose>-0.0025 0 0 0 0 0.005</pose>
+            <geometry>
+              <mesh>
+                <uri>model://actuatorBot/meshes/carriage.dae</uri>
+              </mesh>
+            </geometry>
+          </visual>
+      </link>
+
+  <link name="arml1">
+        <pose>0.0625 -0.045 .0125 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.005 0.05 0.003</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name='visual'>
+            <pose>0 0 0 1.57059633 0 1.57059633</pose>
+            <geometry>
+              <mesh>
+                <uri>model://actuatorBot/meshes/arm1.dae</uri>
+              </mesh>
+            </geometry>
+          </visual>
+      </link>
+
+  <link name="arml2">
+        <pose>0.0625 0.045 .0125 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.005 0.05 0.003</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name='visual'>
+            <pose>0 0 0 1.57059633 0 1.57059633</pose>
+            <geometry>
+              <mesh>
+                <uri>model://actuatorBot/meshes/arm1.dae</uri>
+              </mesh>
+            </geometry>
+          </visual>
+      </link>
+    
+<link name="arml3">
+        <pose>0.0625 -0.03 .0125 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.005 0.05 0.003</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name='visual'>
+            <pose>0 0 0 1.57059633 3.1415 1.57059633</pose>
+            <geometry>
+              <mesh>
+                <uri>model://actuatorBot/meshes/arm1.dae</uri>
+              </mesh>
+            </geometry>
+          </visual>
+      </link>
+
+  <link name="arml4">
+        <pose>0.0625 0.03 .0125 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.005 0.05 0.003</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name='visual'>
+            <pose>0 0 0 1.57059633 3.1415 1.57059633</pose>
+            <geometry>
+              <mesh>
+                <uri>model://actuatorBot/meshes/arm1.dae</uri>
+              </mesh>
+            </geometry>
+          </visual>
+      </link>
+
+
+<link name="armr1">
+        <pose>-0.0625 -0.045 .0125 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.005 0.05 0.003</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name='visual'>
+            <pose>0 0 0 1.57059633 0 1.57059633</pose>
+            <geometry>
+              <mesh>
+                <uri>model://actuatorBot/meshes/arm1.dae</uri>
+              </mesh>
+            </geometry>
+          </visual>
+      </link>
+
+  <link name="armr2">
+        <pose>-0.0625 0.045 .0125 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.005 0.05 0.003</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name='visual'>
+            <pose>0 0 0 1.57059633 0 1.57059633</pose>
+            <geometry>
+              <mesh>
+                <uri>model://actuatorBot/meshes/arm1.dae</uri>
+              </mesh>
+            </geometry>
+          </visual>
+      </link>
+    
+<link name="armr3">
+        <pose>-0.0625 -0.03 .0125 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.005 0.05 0.003</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name='visual'>
+            <pose>0 0 0 1.57059633 3.1415 1.57059633</pose>
+            <geometry>
+              <mesh>
+                <uri>model://actuatorBot/meshes/arm1.dae</uri>
+              </mesh>
+            </geometry>
+          </visual>
+      </link>
+
+  <link name="armr4">
+        <pose>-0.0625 0.03 .0125 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.005 0.05 0.003</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name='visual'>
+            <pose>0 0 0 1.57059633 3.1415 1.57059633</pose>
+            <geometry>
+              <mesh>
+                <uri>model://actuatorBot/meshes/arm1.dae</uri>
+              </mesh>
+            </geometry>
+          </visual>
+      </link>
+
+  <link name="middle">
+        <pose>0 0 0.0125 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.12 0.04 0.01</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name='visual'>
+            <pose>0 0 0 0 0 1.57059633</pose>
+            <geometry>
+              <mesh>
+                <uri>model://actuatorBot/meshes/middle.dae</uri>
+              </mesh>
+            </geometry>
+          </visual>
+      </link>
+
+ <link name="left_wheel">
+        <pose>-0.015 0 0.0125 0 1.5707 1.5707</pose>
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>.0075</radius>
+              <length>.02</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>.0075</radius>
+              <length>.02</length>
+            </cylinder>
+          </geometry>
+        </visual>
+      </link> 
+
+
+
+<link name="right_wheel">
+        <pose>0.015 0 0.0125 0 1.5707 1.5707</pose>
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>.0075</radius>
+              <length>.02</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>.0075</radius>
+              <length>.02</length>
+            </cylinder>
+          </geometry>
+        </visual>
+      </link> 
+
+
+    <joint type="prismatic" name="upper carriage">
+        <pose>0 0.06 0.0125 0 0 0</pose>
+        <child>carriage1</child>
+        <parent>base</parent>
+        <axis>
+		<limit>
+                    <lower>-0.4</lower>
+                    <upper>0.4</upper>
+                </limit>
+          <xyz>0 1 0</xyz>
+        </axis>
+      </joint>
+
+      <joint type="prismatic" name="lower carriage">
+        <pose>0 -0.06 0.0125 0 0 0</pose>
+        <child>carriage2</child>
+        <parent>base</parent>
+        <axis>
+		<limit>
+                    <lower>-0.4</lower>
+                    <upper>0.4</upper>
+                </limit>
+          <xyz>0 1 0</xyz>
+        </axis>
+      </joint>
+
+
+  </model>
+</sdf>

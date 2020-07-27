@@ -1,0 +1,47 @@
+<?xml version='1.0'?>
+<sdf version='1.4'>
+  <model name="actuatorBot">
+    <static>true</static>
+    <self_collide>1</self_collide>
+
+    <link name='window'>
+          <pose>0 0 1.9 1.57059633 0 1.57059633</pose>
+          <collision name='collision1'>
+            <geometry>
+              <mesh>
+                <uri>model://window/meshes/window.dae</uri>
+              </mesh>
+            </geometry>
+          </collision>
+
+          <visual name='visual'>
+            <pose>0 0 0 0 0 0</pose>
+            <geometry>
+              <mesh>
+                <uri>model://window/meshes/window.dae</uri>
+              </mesh>
+            </geometry>
+          </visual>
+      </link>
+
+    <link name='frame'>
+          <pose>0 0 2 1.57059633 0 1.57059633</pose>
+          <collision name='collision2'>
+            <geometry>
+              <mesh>
+                <uri>model://window/meshes/frame.dae</uri>
+              </mesh>
+            </geometry>
+          </collision>
+
+          <visual name='visual'>
+            <pose>0 0 0 0 0</pose>
+            <geometry>
+              <mesh>
+                <uri>model://window/meshes/frame.dae</uri>
+              </mesh>
+            </geometry>
+          </visual>
+      </link>
+  </model>
+</sdf>

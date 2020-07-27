@@ -1,0 +1,395 @@
+<?xml version="1.0"?>
+<robot name="origins">
+
+  <material name="blue">
+    <color rgba="0 0 0.8 1"/>
+  </material>
+  <material name="red">
+    <color rgba="0.8 0 0 1"/>
+  </material>
+
+  <link name="base_link">
+    <visual>
+      <origin rpy="0 0 1.57079633" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://robot/models/actuatorBot/meshes/base.dae"/>
+      </geometry>
+    </visual>
+    <inertial>
+        <mass value="1.0"/>
+        <inertia ixx="0.015" iyy="0.0375" izz="0.0375" ixy="0" ixz="0" iyz="0"/>
+     </inertial> 
+    <collision>
+      <geometry>
+        <box size="0.13 0.25 0.0075"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="carriage1">
+    <visual>
+      <origin rpy="0 0 0" xyz="-0.0025 0 0"/>
+      <geometry>
+        <mesh filename="package://robot/models/actuatorBot/meshes/carriage.dae"/>
+      </geometry>
+    </visual>
+     <inertial>
+        <mass value="1.0"/>
+        <inertia ixx="0.015" iyy="0.0375" izz="0.0375" ixy="0" ixz="0" iyz="0"/>
+     </inertial> 
+    <collision>
+      <geometry>
+        <box size="0.12 0.03 0.015"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="base_to_carriage1" type="prismatic">
+    <parent link="base_link"/>
+    <child link="carriage1"/>
+    <origin xyz="0 0.045 0.0075"/>
+    <axis xyz = "0 1 0"/>
+    <limit effort="1000.0" lower="-0.08" upper=".08" velocity="0.5"/>
+  </joint>
+
+
+  <link name="carriage2">
+    <visual>
+       <origin rpy="0 0 0" xyz="-0.0025 0 0"/>
+      <geometry>
+        <mesh filename="package://robot/models/actuatorBot/meshes/carriage.dae"/>
+      </geometry>
+    </visual>
+     <inertial>
+        <mass value="1.0"/>
+        <inertia ixx="0.015" iyy="0.0375" izz="0.0375" ixy="0" ixz="0" iyz="0"/>
+     </inertial> 
+    <collision>
+      <geometry>
+        <box size="0.12 0.03 0.015"/>
+      </geometry>
+    </collision>
+  </link>
+     
+  <joint name="base_to_carriage2" type="prismatic">
+    <parent link="base_link"/>
+    <child link="carriage2"/>
+    <origin xyz="0 -0.045 0.0075"/>
+    <axis xyz = "0 1 0"/>
+    <limit effort="1000.0" lower="-0.08" upper="0.08" velocity="0.5"/>
+  </joint>
+
+
+  <link name="middle">
+    <visual>
+       <origin rpy="1.57059633 3.1415926535 1.57059633" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://robot/models/actuatorBot/meshes/middle1.dae"/>
+      </geometry>
+    </visual>
+    <inertial>
+        <mass value="1.0"/>
+        <inertia ixx="0.015" iyy="0.0375" izz="0.0375" ixy="0" ixz="0" iyz="0"/>
+     </inertial> 
+    <collision>
+      <geometry>
+        <box size="0.12 0.06 0.01"/>
+      </geometry>
+      <origin xyz="0 -.025 0"/>
+    </collision>
+  </link>
+
+  <joint name="arml_to_middle" type="continuous">
+    <parent link="arml1"/>
+    <child link="middle"/>
+    <origin rpy="0.7853981625 0 0" xyz="-0.0625 -0.045 0"/>
+    <axis xyz = "1 0 0"/>
+  </joint>
+
+
+
+
+<gazebo>
+       <plugin name="Myrobot_ClosedLoopPlugin" filename="libpegasus_gazebo_closed_loop_plugin.so">
+           <joint>arml4_to_middle</joint>
+           <child>middle</child>
+           <parent>arml4</parent>
+           <position>0.0 0.0 0.0</position>
+           <rotation>0.00 -0.00 0.00</rotation>
+       </plugin>
+     </gazebo>
+
+
+<gazebo>
+       <plugin name="Myrobot_ClosedLoopPlugin" filename="libpegasus_gazebo_closed_loop_plugin.so">
+           <joint>armr2_to_middle</joint>
+           <child>middle</child>
+           <parent>armr2</parent>
+           <position>0.0 0.0 0.0</position>
+           <rotation>0.00 -0.00 0.00</rotation>
+       </plugin>
+     </gazebo>
+
+<gazebo>
+       <plugin name="Myrobot_ClosedLoopPlugin" filename="libpegasus_gazebo_closed_loop_plugin.so">
+           <joint>armr4_to_middle</joint>
+           <child>middle</child>
+           <parent>armr4</parent>
+           <position>0.0 0.0 0.0</position>
+           <rotation>0.00 -0.00 0.00</rotation>
+       </plugin>
+     </gazebo>
+
+
+
+
+
+<transmission name = "tran1">
+    <type>transmission_interface/SimpleTransmissions</type>
+    <joint name = "base_to_carriage1">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name = "motor1">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+</transmission>
+
+<transmission name = "tran2">
+    <type>transmission_interface/SimpleTransmissions</type>
+    <joint name = "base_to_carriage2">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name = "motor2">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+</transmission>
+
+<gazebo>
+ <plugin name = "gazebo_ros_control" filename = "libgazebo_ros_control.so">
+    <robotNamespace>/robot</robotNamespace>
+    <legacyModeNS>true</legacyModeNS>
+  </plugin>
+</gazebo>
+
+  <link name="arml1">
+    <visual>
+       <origin rpy="1.57059633 3.141592 1.57079633" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://robot/models/actuatorBot/meshes/arm1.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.005 0.05 0.003"/>
+      </geometry>
+      <origin xyz="0 -0.0225 0"/>
+    </collision>
+    <inertial>
+        <mass value="1.0"/>
+        <inertia ixx="0.015" iyy="0.0" izz="0.015" ixy="0" ixz="0" iyz="0"/>
+     </inertial> 
+  </link>
+  <joint name="carriage1_to_arml1" type="continuous">
+    <parent link="carriage1"/>
+    <child link="arml1"/>
+    <axis xyz = "1 0 0"/>
+    <origin rpy="-0.7853981625 0 0" xyz="0.0625 0.008 0"/>
+  </joint>
+
+
+  <link name="arml2">
+    <visual>
+       <origin rpy="1.57059633 0 1.57079633" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://robot/models/actuatorBot/meshes/arm1.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+     <origin xyz="0 0.0225 0"/>
+      <geometry>
+        <box size="0.005 0.05 0.003"/>
+      </geometry>
+    </collision>
+    <inertial>
+        <mass value="1.0"/>
+        <inertia ixx="0.015" iyy="0" izz="0.015" ixy="0" ixz="0" iyz="0"/>
+     </inertial> 
+  </link>
+  <joint name="carriage2_to_arml2" type="continuous">
+    <parent link="carriage2"/>
+    <child link="arml2"/>
+    <axis xyz = "1 0 0"/>
+    <mimic joint="carriage2_to_arml4" multiplier = "1" offset="0"/>
+    <origin rpy="0.7853981625 0 0" xyz="0.0625 0.008 0"/>
+  </joint>
+
+    
+
+  <link name="armr1">
+    <visual>
+       <origin rpy="-1.57079633 0 -1.57059633" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://robot/models/actuatorBot/meshes/arm1.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 -0.0225 0"/>
+      <geometry>
+        <box size="0.005 0.05 0.003"/>
+      </geometry>
+    </collision>
+     <inertial>
+        <mass value="1.0"/>
+        <inertia ixx="0.015" iyy="0" izz="0.015" ixy="0" ixz="0" iyz="0"/>
+     </inertial> 
+  </link>
+  <joint name="carriage1_to_armr1" type="continuous">
+    <parent link="carriage1"/>
+    <child link="armr1"/>
+    <axis xyz = "1 0 0"/>
+
+    <origin rpy="-0.7853981625 0 0" xyz="-0.0625 0.008 0"/>
+  </joint>
+
+    
+
+  <link name="armr2">
+    <visual>
+       <origin rpy="1.57059633 3.141592 -1.57079633" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://robot/models/actuatorBot/meshes/arm1.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0.0225 0"/>
+      <geometry>
+        <box size="0.005 0.05 0.003"/>
+      </geometry>
+    </collision>
+     <inertial>
+        <mass value="1.0"/>
+        <inertia ixx="0.015" iyy="0" izz="0.015" ixy="0" ixz="0" iyz="0"/>
+     </inertial> 
+  </link>
+  <joint name="carriage2_to_armr2" type="continuous">
+    <parent link="carriage2"/>
+    <child link="armr2"/>
+    <origin rpy="0.7853981625 0 0" xyz="-0.0625 -0.008 0"/>
+    <axis xyz = "1 0 0"/>
+
+  </joint>
+
+  <link name="arml3">
+    <visual>
+       <origin rpy="1.570596330 0 -1.57079633" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://robot/models/actuatorBot/meshes/arm1.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 -0.0225 0"/>
+      <geometry>
+        <box size="0.005 0.05 0.003"/>
+      </geometry>
+    </collision>
+   <inertial>
+        <mass value="1.0"/>
+        <inertia ixx="0.015" iyy="0" izz="0.015" ixy="0" ixz="0" iyz="0"/>
+     </inertial> 
+  </link>
+  <joint name="carriage1_to_arml3" type="continuous">
+    <parent link="carriage1"/>
+    <child link="arml3"/>
+    <origin rpy="-0.7853981625 0 0" xyz="0.0625 -0.008 0"/>
+    <mimic joint="carriage1_to_arml1" multiplier = "1" offset="0"/>
+    <axis xyz = "1 0 0"/>
+  </joint>
+
+
+  <link name="arml4">
+    <visual>
+       <origin rpy="1.57059633 3.141592 -1.57079633" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://robot/models/actuatorBot/meshes/arm1.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0.0225 0"/>
+      <geometry>
+        <box size="0.005 0.05 0.003"/>
+      </geometry>
+    </collision>
+   <inertial>
+        <mass value="1.0"/>
+        <inertia ixx="0.015" iyy="0" izz="0.015" ixy="0" ixz="0" iyz="0"/>
+     </inertial> 
+  </link>
+  <joint name="carriage2_to_arml4" type="continuous">
+    <parent link="carriage2"/>
+    <child link="arml4"/>
+    <origin rpy="0.7853981625 0 0" xyz="0.0625 -0.008 0"/>
+    <axis xyz = "1 0 0"/>
+  </joint>
+    
+
+  <link name="armr3">
+    <visual>
+       <origin rpy="-1.57079633 3.14159265 1.57079633" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://robot/models/actuatorBot/meshes/arm1.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 -0.0225 0"/>
+      <geometry>
+        <box size="0.005 0.05 0.003"/>
+      </geometry>
+    </collision>
+    <inertial>
+        <mass value="1.0"/>
+        <inertia ixx="0.015" iyy="0" izz="0.015" ixy="0" ixz="0" iyz="0"/>
+     </inertial> 
+  </link>
+  <joint name="carriage1_to_armr3" type="continuous">
+    <parent link="carriage1"/>
+    <child link="armr3"/>
+    <origin rpy="-0.7853981625 0 0" xyz="-0.0625 -0.008 0"/>
+    <mimic joint="carriage1_to_armr1" multiplier = "1" offset="0"/>
+    <axis xyz = "1 0 0"/>
+  </joint>
+    
+
+  <link name="armr4">
+    <visual>
+       <origin rpy="1.57059633 0 1.57079633" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://robot/models/actuatorBot/meshes/arm1.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0.0225 0"/>
+      <geometry>
+        <box size="0.005 0.05 0.003"/>
+      </geometry>
+    </collision>
+    <inertial>
+        <mass value="1.0"/>
+        <inertia ixx="0.015" iyy="0" izz="0.015" ixy="0" ixz="0" iyz="0"/>
+     </inertial> 
+  </link>
+  <joint name="carriage2_to_armr4" type="continuous">
+    <parent link="carriage2"/>
+    <child link="armr4"/>
+    <origin rpy="0.7853981625 0 0" xyz="-0.0625 0.008 0"/>
+    <axis xyz = "1 0 0"/>
+    <mimic joint="carriage2_to_armr2" multiplier = "1" offset="0"/>
+
+  </joint>
+    
+</robot>
+
+
+
+
