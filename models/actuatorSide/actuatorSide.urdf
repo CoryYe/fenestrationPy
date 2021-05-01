@@ -1,0 +1,222 @@
+<?xml version="1.0"?>
+<robot name="origins">
+
+  <material name="blue">
+    <color rgba="0 0 0.8 1"/>
+  </material>
+  <material name="red">
+    <color rgba="0.8 0 0 1"/>
+  </material>
+  <material name="green">
+    <color rgba="0 0.8 0 1"/>
+  </material>
+
+  <link name="base_link">
+    <visual>
+      <origin rpy="0 0 1.57079633" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="/meshes/base.dae"/>
+      </geometry>
+    </visual>
+    <inertial>
+        <mass value="0.1"/>
+        <inertia ixx="0.015" iyy="0.0375" izz="0.0375" ixy="0" ixz="0" iyz="0"/>
+     </inertial> 
+    <collision>
+      <geometry>
+        <box size="0.15 0.2 0.003"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="armHolder_link">
+    <visual>
+      <origin rpy="1.57079633 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="/meshes/armHolder.dae"/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+     <inertial>
+        <mass value="0.116"/>
+        <inertia ixx="0.015" iyy="0.0375" izz="0.0375" ixy="0" ixz="0" iyz="0"/>
+     </inertial> 
+    <collision>
+      <geometry>
+        <box size="0.09 0.043 0.016"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="base_to_holder" type="prismatic">
+    <parent link="base_link"/>
+    <child link="armHolder_link"/>
+    <origin xyz="0 0.04 0.0075"/>
+    <axis xyz = "0 1 0"/>
+    <limit effort="1000.0" lower="-0.08" upper=".08" velocity="0.5"/>
+  </joint>
+   
+  <link name="arm1">
+    <visual>
+       <origin rpy="0 1.57079633 0" xyz="0 -0.045 0"/>
+      <geometry>
+        <mesh filename="/meshes/arm.dae"/>
+      </geometry>
+      <material name="red"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.005 0.1 0.007"/>
+      </geometry>
+      <origin xyz="0 -0.05 0"/>
+    </collision>
+    <inertial>
+        <mass value="0.0159"/>
+        <inertia ixx="0.015" iyy="0.0" izz="0.015" ixy="0" ixz="0" iyz="0"/>
+     </inertial> 
+  </link>
+  <joint name="holder_to_arm1" type="continuous">
+    <parent link="armHolder_link"/>
+    <child link="arm1"/>
+    <axis xyz = "1 0 0"/>
+    <origin rpy="-0.1 0 0" xyz="0.048 -0.02 -0.00095"/>
+  </joint>
+
+  <link name="arm2">
+    <visual>
+       <origin rpy="0 1.57079633 0" xyz="0 -0.045 0"/>
+      <geometry>
+        <mesh filename="/meshes/arm.dae"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.005 0.1 0.007"/>
+      </geometry>
+      <origin xyz="0 -0.05 0"/>
+    </collision>
+    <inertial>
+        <mass value="0.0159"/>
+        <inertia ixx="0.015" iyy="0.0" izz="0.015" ixy="0" ixz="0" iyz="0"/>
+     </inertial> 
+  </link>
+  <joint name="holder_to_arm2" type="continuous">
+    <parent link="armHolder_link"/>
+    <child link="arm2"/>
+    <axis xyz = "1 0 0"/>
+    <origin rpy="-0.1 0 0" xyz="-0.048 -0.02 -0.00095"/>
+  </joint>
+
+
+
+  <link name="arm3">
+    <visual>
+       <origin rpy="0 1.57079633 0" xyz="0 -0.045 0"/>
+      <geometry>
+        <mesh filename="/meshes/arm.dae"/>
+      </geometry>
+      <material name="red"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.005 0.1 0.007"/>
+      </geometry>
+      <origin xyz="0 -0.05 0"/>
+    </collision>
+    <inertial>
+        <mass value="0.0159"/>
+        <inertia ixx="0.015" iyy="0.0" izz="0.015" ixy="0" ixz="0" iyz="0"/>
+     </inertial> 
+  </link>
+  <joint name="base_to_arm3" type="continuous">
+    <parent link="base_link"/>
+    <child link="arm3"/>
+    <axis xyz = "1 0 0"/>
+    <origin rpy="-3.04159 0 0" xyz="0.055 -0.07 0.0065"/>
+  </joint>
+
+  <link name="arm4">
+    <visual>
+       <origin rpy="0 1.57079633 0" xyz="0 -0.045 0"/>
+      <geometry>
+        <mesh filename="/meshes/arm.dae"/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.005 0.1 0.007"/>
+      </geometry>
+      <origin xyz="0 -0.05 0"/>
+    </collision>
+    <inertial>
+        <mass value="0.0159"/>
+        <inertia ixx="0.015" iyy="0.0" izz="0.015" ixy="0" ixz="0" iyz="0"/>
+     </inertial> 
+  </link>
+  <joint name="base_to_arm4" type="continuous">
+    <parent link="base_link"/>
+    <child link="arm4"/>
+    <axis xyz = "1 0 0"/>
+    <origin rpy="-3.04159 0 0" xyz="-0.055 -0.07 0.0065"/>
+  </joint>
+
+  <link name="slider_link">
+    <visual>
+       <origin rpy="1.57079633 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="/meshes/slider.dae"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.1 0.007 0.007"/>
+      </geometry>
+      <origin xyz="0 0 0"/>
+    </collision>
+    <inertial>
+        <mass value="0.0159"/>
+        <inertia ixx="0.015" iyy="0.0" izz="0.015" ixy="0" ixz="0" iyz="0"/>
+     </inertial> 
+  </link>
+  <joint name="arm4_to_slider" type="continuous">
+    <parent link="arm4"/>
+    <child link="slider_link"/>
+    <axis xyz = "1 0 0"/>
+    <origin rpy="0 0 0" xyz="0.055 -0.09 0"/>
+  </joint>
+
+  <link name="middle_link">
+    <visual>
+       <origin rpy="0 0 -1.57079633" xyz="0 0.0325 0"/>
+      <geometry>
+        <mesh filename="/meshes/middle.dae"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.06 0.110 0.004"/>
+      </geometry>
+      <origin xyz="0 0.0325 0"/>
+    </collision>
+    <inertial>
+        <mass value="0.0159"/>
+        <inertia ixx="0.015" iyy="0.0" izz="0.015" ixy="0" ixz="0" iyz="0"/>
+     </inertial> 
+  </link>
+  <joint name="slider_to_middle" type="prismatic">
+    <parent link="slider_link"/>
+    <child link="middle_link"/>
+    <axis xyz = "0 1 0"/>
+    <limit effort="1000.0" lower="-0.015" upper=".015" velocity="0.5"/>
+    <origin rpy="-0.1 0 0" xyz="0 0.015 0"/>
+  </joint>
+
+</robot>
+
+
+
+

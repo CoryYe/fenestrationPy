@@ -3,50 +3,160 @@ import time
 import matplotlib.pyplot as plt
 import math
 import pybullet_data
+from pybullet_utils import urdfEditor as ed
+from pybullet_utils import bullet_client as bc
+import numpy as np
+import matplotlib.animation as animation
+
+import sys, getopt
+import tkinter
+
+
+
+def robotMove(pos,robot,ori,links):
+    jointPos = p.calculateInverseKinematics(robot,links['EE'], pos, 
+        p.getQuaternionFromEuler(ori),solver=p.IK_DLS,maxNumIterations=2000)
+    arml1Joint = joints["carriage1_to_arml1"]
+    arml1Pos = jointPos[arml1Joint]
+    
+    #graphing information data collection
+    #print(jointPos)
+    #carriagePos1.append(p.getJointState(robot,0)[0])
+    #carriagePos2.append(p.getJointState(robot,7)[0])
+    #print(p.getJointState(robot,1)[0])
+    #middleH = 0.05* math.sin(0.785398-p.getJointState(robot,1)[0])
+    #middleY = (p.getJointState(robot,0)[0]+p.getJointState(robot,0)[0])/2
+    #middlePos.append(middleY)
+    forces0 = p.getContactPoints(robot,window)
+    #print(forces0)
+    
+    forceList = []
+    for f in forces0:
+        if f[3]==2:
+            forceList.append(f[9])
+    if len(forceList)>0:
+        maxForce = max(forceList)
+    
+    for i in range(numJoints):
+        p.setJointMotorControl2(bodyIndex=robot,jointIndex=i,controlMode=p.POSITION_CONTROL,
+            targetPosition = jointPos[i], targetVelocity = 0, force = 5000, positionGain = 0.03, 
+            velocityGain = 1)
+        p.setJointMotorControl2(bodyIndex=robot,jointIndex=joints["carriage1_to_arml3"],
+            controlMode=p.POSITION_CONTROL,targetPosition = arml1Pos, 
+            targetVelocity = 0, force = 5000, positionGain = 0.03, 
+            velocityGain = 1)
+        p.setJointMotorControl2(bodyIndex=robot,jointIndex=joints["carriage2_to_arml4"],
+            controlMode=p.POSITION_CONTROL,targetPosition = -arml1Pos, 
+            targetVelocity = 0, force = 5000, positionGain = 0.03, 
+            velocityGain = 1)
+        p.setJointMotorControl2(bodyIndex=robot,jointIndex=joints["carriage1_to_armr1"],
+            controlMode=p.POSITION_CONTROL,targetPosition = arml1Pos, 
+            targetVelocity = 0, force = 5000, positionGain = 0.03, 
+            velocityGain = 1)
+        p.setJointMotorControl2(bodyIndex=robot,jointIndex=joints["carriage1_to_armr3"],
+            controlMode=p.POSITION_CONTROL,targetPosition = arml1Pos, 
+            targetVelocity = 0, force = 5000, positionGain = 0.03, 
+            velocityGain = 1)
+        p.setJointMotorControl2(bodyIndex=robot,jointIndex=joints["carriage2_to_armr2"],
+            controlMode=p.POSITION_CONTROL,targetPosition = -arml1Pos, 
+            targetVelocity = 0, force = 5000, positionGain = 0.03, 
+            velocityGain = 1)
+    return forceList
+
+
+    
+
+
+
+root = tkinter.Tk()
+
+delay = 0
+startDelay = 0
+argv = sys.argv[1:]
+
+if len(sys.argv)>0:
+    opts, args = getopt.getopt(argv,"d:s:")
+    for opt, arg in opts:
+        if opt in ['-d']:
+            delay = arg
+        if opt in ['-s']:
+            startDelay = arg
+    print("Delay")
+    print(delay)
+    print("Start Delay")
+    print(startDelay)
+        
+
+
+
 
 physicsClient = p.connect(p.GUI)#or p.DIRECT for non-graphical version
 p.setAdditionalSearchPath(pybullet_data.getDataPath()) #optionally
 p.setGravity(0,0,-10)
 
-p.setPhysicsEngineParameter(numSolverIterations=10000)
-
+p.setPhysicsEngineParameter(numSolverIterations=1000)
 
 planeId = p.loadURDF("plane.urdf")
 
 startZ = 1.225
-cubeStartPos = [0,0,0.005+startZ]
+startZUP = 1.465
+startZUPPER = startZ + startZUP
+
+#starting locations for all actuators
+cubeStartPos = [-0.45,0,0.005+startZ]
+cubeStartPos3 = [0.45,0.0,0.005+startZ]
+cubeStartPos4 = [-0.45,0.0,0.005+startZUPPER]
+cubeStartPos5 = [0.45,0.0,0.005+startZUPPER]
+
 cubeStartPos1 = [0,0,0]
-cubeStartPos2 = [0,0,1.95]
+cubeStartPos2 = [0,0,1.925]
 cubeStartOrientation = p.getQuaternionFromEuler([0,0,0])
-robot = p.loadURDF("models/actuatorBot/actuatorFixed.urdf",cubeStartPos,
+robot0 = p.loadURDF("models/actuatorBot/actuatorFixed.urdf",cubeStartPos,
     cubeStartOrientation,useFixedBase = 1)
 frame = p.loadURDF("models/window/frame.urdf", cubeStartPos1,cubeStartOrientation,useFixedBase = 1)
-window = p.loadURDF("models/window/window.urdf", cubeStartPos2,p.getQuaternionFromEuler([0,0,1.571]),useFixedBase = 0)
+window = p.loadURDF("models/window/window_nosupport.urdf", cubeStartPos2,p.getQuaternionFromEuler([0,0,1.571]),useFixedBase = 0)
 
 
-numJoints = p.getNumJoints(robot)
-print(numJoints)
+robot1 = p.loadURDF("models/actuatorBot/actuatorFixed.urdf",cubeStartPos3,
+    cubeStartOrientation,useFixedBase = 1)
+robot2  = p.loadURDF("models/actuatorBot/actuatorFixed.urdf",cubeStartPos4,
+    cubeStartOrientation,useFixedBase = 0)
+robot3 = p.loadURDF("models/actuatorBot/actuatorFixed.urdf",cubeStartPos5,
+    cubeStartOrientation,useFixedBase = 0)
+    
+    
+tester = p.loadURDF("models/window/testpoint.urdf", [0,0.05,0.01],cubeStartOrientation,useFixedBase = 0)
+
+robotArray = [robot0,robot1,robot2,robot3]
+
+robotBot = [robot0,robot1]
+robotTop = [robot2,robot3]
+
+numJoints = p.getNumJoints(robot0)
 
 joints = {}
 links = {}
-for i in range(numJoints):
-    num = p.getJointInfo(robot,i)[0]
-    jName = str(p.getJointInfo(robot,i)[1]).replace("'",'').replace("b",'')
-    lName = str(p.getJointInfo(robot,i)[12]).replace("'",'').replace("b",'')
-    joints[jName] = num
-    links[lName] = num
-    p.enableJointForceTorqueSensor(robot,i,1)
 
-print(joints)
-print(links)
+#Create constraints for actuators
+for r in robotArray:
+    for i in range(numJoints):
+        #print(p.getJointInfo(r,i))
+        num = p.getJointInfo(r,i)[0]
+        print(p.getJointInfo(r,i))
+        jName = str(p.getJointInfo(r,i)[1]).replace("'",'').replace("b",'')
+        lName = str(p.getJointInfo(r,i)[12]).replace("'",'').replace("b",'')
+        joints[jName] = num
+        links[lName] = num
+        p.enableJointForceTorqueSensor(r,i,1)
+    p.createConstraint(r,links["armr4"],r,links["middle"],p.JOINT_POINT2POINT,
+        [1,0,0],[0.0024, 0.04,0],[-0.06,-0.0275,-0.0045])
+    p.createConstraint(r,links["arml2"],r,links["middle"],p.JOINT_POINT2POINT,
+        [1,0,0],[-0.0024, 0.04,0],[0.06, -0.0275,-0.0045])
 
-p.createConstraint(robot,links["armr2"],robot,links["middle"],p.JOINT_POINT2POINT,
-    [0,0,0],[0, 0.04,0],[-0.06,-0.05,0])
-p.createConstraint(robot,links["arml2"],robot,links["middle"],p.JOINT_POINT2POINT,
-    [0,0,0],[0, 0.04,0],[0.06,-0.03,0])
+#Create constraints for top actuator
+p.createConstraint(window,-1,robot2,-1,p.JOINT_FIXED,[0,0,0],[0, 0,0],[0.45,0,-0.77],p.getQuaternionFromEuler([0,0,-1.57079]))
+p.createConstraint(window,-1,robot3,-1,p.JOINT_FIXED,[0,0,0],[0, 0,0],[-0.450,0,-0.77],p.getQuaternionFromEuler([0,0,-1.57079]))
 
-#p.createConstraint(robot,links["armr3"],robot,links["middle"],p.JOINT_POINT2POINT,
-#    [0,0,0],[0, -0.04,0],[-0.06,-0.02,0])
 #p.createConstraint(robot,links["armr4"],robot,links["middle"],p.JOINT_POINT2POINT,
 #    [0,0,0],[0, 0.04,0],[-0.06,-0.03,0])
 #p.createConstraint(robot,links["arml3"],robot,links["middle"],p.JOINT_POINT2POINT,
@@ -57,7 +167,7 @@ p.createConstraint(robot,links["arml2"],robot,links["middle"],p.JOINT_POINT2POIN
 #    [0,0,0],[0, -0.04,0],[-0.06,0,0])
 
 
-maxForce = 500
+maxforce = 5000
 
 pos = [0,-1,0.06]
 ori = [0,0,0]
@@ -67,75 +177,100 @@ carriagePos1 = []
 carriagePos2 = []
 middlePos = []
 
-y = -0.055
+y = 0
 
 
+#best 0.0525
+z = 0.053
+zU = 0.053
+#y (-0.055 - 0.055)
+#z (0.01 - 0.055)
 
-while y<=0.055:
-    z= 0.01
-    print(y)
-    while z<=0.065:
-#while t<100:
-    #i+=1
-    #print(t)
-    #t = t+0.01
-        p.stepSimulation()
-        time.sleep(1./2400.)
-    #print("0")
-    #print(p.getJointState(robot,0))
-    #print("1")
-    #print(p.getJointState(robot,joints["middle_to_EE"]))
 
-    #for :
+startY = 0
+n = 0
+xs = []
+ys = []
 
-        #z = 0.01+0.05*abs(math.sin(t))
-        #y = -0.05 * math.cos(t)
-        #y = 0  
-        pos = [0, y, z+startZ]
-        #print(pos)
-        jointPos = p.calculateInverseKinematics(robot,links['EE'], pos, 
-            p.getQuaternionFromEuler(ori),solver=p.IK_DLS,maxNumIterations=5000)
-        arml1Joint = joints["carriage1_to_arml1"]
-        arml1Pos = jointPos[arml1Joint]
-        #print(jointPos)
-        carriagePos1.append(p.getJointState(robot,0)[0])
-        carriagePos2.append(p.getJointState(robot,7)[0])
-        #print(p.getJointState(robot,1)[0])
-        #middleH = 0.05* math.sin(0.785398-p.getJointState(robot,1)[0])
-        middleY = (p.getJointState(robot,0)[0]+p.getJointState(robot,0)[0])/2
-        middlePos.append(middleY)
+timeStep = 0
+while True:
+    p.stepSimulation()
+    time.sleep(1./2400.)
 
-        for i in range(numJoints):
-            p.setJointMotorControl2(bodyIndex=robot,jointIndex=i,controlMode=p.POSITION_CONTROL,
-                targetPosition = jointPos[i], targetVelocity = 0, force = 500, positionGain = 0.03, 
-                velocityGain = 1)
-            p.setJointMotorControl2(bodyIndex=robot,jointIndex=joints["carriage1_to_arml3"],
-                controlMode=p.POSITION_CONTROL,targetPosition = arml1Pos, 
-                targetVelocity = 0, force = 500, positionGain = 0.03, 
-                velocityGain = 1)
-            p.setJointMotorControl2(bodyIndex=robot,jointIndex=joints["carriage2_to_arml4"],
-                controlMode=p.POSITION_CONTROL,targetPosition = -arml1Pos, 
-                targetVelocity = 0, force = 500, positionGain = 0.03, 
-                velocityGain = 1)
-            p.setJointMotorControl2(bodyIndex=robot,jointIndex=joints["carriage1_to_armr1"],
-                controlMode=p.POSITION_CONTROL,targetPosition = arml1Pos, 
-                targetVelocity = 0, force = 500, positionGain = 0.03, 
-                velocityGain = 1)
-            p.setJointMotorControl2(bodyIndex=robot,jointIndex=joints["carriage1_to_armr3"],
-                controlMode=p.POSITION_CONTROL,targetPosition = arml1Pos, 
-                targetVelocity = 0, force = 500, positionGain = 0.03, 
-                velocityGain = 1)
-            p.setJointMotorControl2(bodyIndex=robot,jointIndex=joints["carriage2_to_armr4"],
-                controlMode=p.POSITION_CONTROL,targetPosition = -arml1Pos, 
-                targetVelocity = 0, force = 500, positionGain = 0.03, 
-                velocityGain = 1)
-        z+=0.0001
-    y+=0.001
+    #startup Procedure
+    
+    
+    
+    #l 65295
+    #u 65297
+    #r 65296
+    #d 65298
+    qKey = ord('q')
+    uKey = 65297
+    lKey = 65295
+    rKey = 65296
+    dKey = 65298
+    keys = p.getKeyboardEvents()
 
+    #Start Delay to have the actuators settle in
+    if timeStep>startDelay:
+        if qKey in keys and keys[qKey]&p.KEY_WAS_TRIGGERED:
+            print(keys)
+        if uKey in keys and keys[uKey]&p.KEY_WAS_TRIGGERED:
+            print("Up")
+            z+=0.001
+            zU-=0.001
+        if lKey in keys and keys[lKey]&p.KEY_WAS_TRIGGERED:
+            print("Left")
+            y-=0.001
+        if rKey in keys and keys[rKey]&p.KEY_WAS_TRIGGERED:
+            print("Right")
+            y+=0.001
+        if dKey in keys and keys[dKey]&p.KEY_WAS_TRIGGERED:
+            print("Down")
+            z-=0.001
+            zU+=0.001
+            
+    startZ = 1.225
+    startZUP = 1.465
+    pos = [0, startY, z+startZ]
+    posU = [0, startY, zU+startZ + startZUP]
+
+    forceList = robotMove(pos,robotArray[0],ori,links)
+    robotMove(pos,robotArray[1],ori,links)
+    robotMove(posU,robotArray[2],ori,links)
+    robotMove(posU,robotArray[3],ori,links)
+
+    #Move to Position
+
+    #plt.axis([0, 100, 0, 100])
+
+    windowPos = p.getBasePositionAndOrientation(window)[0]
+    #print(windowPos)
+    if windowPos[0]>0.1 or windowPos[2] <1.0:
+        p.resetSimulation()
+    
+    
+    if len(forceList)>0:
+        maxForce = max(forceList)
+    else:
+        maxForce = 0
+    ys.append(maxForce)
+    print(maxForce)
+    xs.append(z)
+    plt.scatter(xs, ys, c="blue")
+
+    #print(z, maxForce)
+    #plt.draw()
+    #plt.pause(0.001)
+    n+=1
+    timeStep+=1
+    if n>200:
+        n=0
+
+    
 p.disconnect()
-sc = plt.scatter(carriagePos1,carriagePos2,c=middlePos,cmap = 'plasma')
-plt.xlabel('Carriage1 Position')
-plt.ylabel('Carriage2 Position')
-plt.colorbar(sc)
+
+sc = plt.scatter(xs,ys)
 plt.show()
 
