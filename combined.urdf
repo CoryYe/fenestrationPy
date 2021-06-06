@@ -1,0 +1,460 @@
+<?xml version="0.0" ?>
+<robot name="">
+	<link name="base_window">
+		<inertial>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+			<mass value="10.00000"/>
+			<inertia ixx="3.99414" ixy="0" ixz="0" iyy="1.58444" iyz="0" izz="2.41834"/>
+		</inertial>
+		<visual>
+			<origin rpy="1.57080 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+			<geometry>
+				<mesh filename="models/window//meshes/window.dae" scale="1.00000 1.00000 1.00000"/>
+			</geometry>
+			<material name="mat_-1_0">
+				<color rgba="1.00000 1.00000 1.00000 1.00000" />
+			</material>
+		</visual>
+		<collision>
+			<origin rpy="1.57080 -0.00000 0.00000" xyz="0.00000 -0.01000 0.05200"/>
+			<geometry>
+				<box size="0.07000 1.37500 1.70000"/>
+			</geometry>
+		</collision>
+	</link>
+	<link name="base1">
+		<inertial>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+			<mass value="0.11600"/>
+			<inertia ixx="0.00244" ixy="0" ixz="0" iyy="0.00244" iyz="0" izz="0.00005"/>
+		</inertial>
+		<visual>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+			<geometry>
+				<box size="0.05000 0.05000 0.50000"/>
+			</geometry>
+			<material name="mat_0_0">
+				<color rgba="0.00000 0.80000 0.00000 1.00000" />
+			</material>
+		</visual>
+		<collision>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+			<geometry>
+				<box size="0.05000 0.05000 0.50000"/>
+			</geometry>
+		</collision>
+	</link>
+	<link name="base2">
+		<inertial>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+			<mass value="0.11600"/>
+			<inertia ixx="0.00244" ixy="0" ixz="0" iyy="0.00244" iyz="0" izz="0.00005"/>
+		</inertial>
+		<visual>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+			<geometry>
+				<box size="0.05000 0.05000 0.50000"/>
+			</geometry>
+			<material name="mat_1_0">
+				<color rgba="0.00000 0.80000 0.00000 1.00000" />
+			</material>
+		</visual>
+		<collision>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+			<geometry>
+				<box size="0.05000 0.05000 0.50000"/>
+			</geometry>
+		</collision>
+	</link>
+	<link name="base_link">
+		<inertial>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="-0.25000 0.00000 -2.68000"/>
+			<mass value="100.00000"/>
+			<inertia ixx="0.17581" ixy="0" ixz="0" iyy="0.56781" iyz="0" izz="0.70027"/>
+		</inertial>
+		<visual>
+			<origin rpy="0.00000 -0.00000 1.57080" xyz="0.00000 -0.25000 -2.68000"/>
+			<geometry>
+				<mesh filename="models/actuatorBot/meshes/baseALT.dae" scale="1.00000 1.00000 1.00000"/>
+			</geometry>
+			<material name="mat_-1_0">
+				<color rgba="0.00000 0.00000 0.80000 1.00000" />
+			</material>
+		</visual>
+		<collision>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="-0.25000 0.00000 -2.68000"/>
+			<geometry>
+				<mesh filename="models/actuatorBot/meshes/baseALT.dae" scale="1.00000 1.00000 1.00000"/>
+			</geometry>
+		</collision>
+	</link>
+	<link name="carriage1">
+		<inertial>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+			<mass value="0.11600"/>
+			<inertia ixx="0.00001" ixy="0" ixz="0" iyy="0.00014" iyz="0" izz="0.00015"/>
+		</inertial>
+		<visual>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="-0.00250 0.00000 0.00000"/>
+			<geometry>
+				<mesh filename="models/actuatorBot/meshes/carriage.dae" scale="1.00000 1.00000 1.00000"/>
+			</geometry>
+			<material name="mat_0_0">
+				<color rgba="0.00000 0.80000 0.00000 1.00000" />
+			</material>
+		</visual>
+		<collision>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+			<geometry>
+				<box size="0.12000 0.03000 0.01500"/>
+			</geometry>
+		</collision>
+	</link>
+	<link name="arml1">
+		<inertial>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+			<mass value="0.01590"/>
+			<inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+		</inertial>
+		<visual>
+			<origin rpy="-1.57100 0.00000 -1.57080" xyz="0.00000 0.00000 0.00000"/>
+			<geometry>
+				<mesh filename="models/actuatorBot/meshes/arm1.dae" scale="1.00000 1.00000 1.00000"/>
+			</geometry>
+			<material name="mat_1_0">
+				<color rgba="0.80000 0.00000 0.00000 1.00000" />
+			</material>
+		</visual>
+		<collision>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 -0.02250 0.00000"/>
+			<geometry>
+				<box size="0.00500 0.05000 0.00300"/>
+			</geometry>
+		</collision>
+	</link>
+	<link name="middle">
+		<inertial>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+			<mass value="0.07158"/>
+			<inertia ixx="0.00002" ixy="0" ixz="0" iyy="0.00009" iyz="0" izz="0.00011"/>
+		</inertial>
+		<visual>
+			<origin rpy="-1.57100 0.00000 -1.57100" xyz="0.00000 0.00000 0.00000"/>
+			<geometry>
+				<mesh filename="models/actuatorBot/meshes/middle1.dae" scale="1.00000 1.00000 1.00000"/>
+			</geometry>
+			<material name="mat_2_0">
+				<color rgba="0.00000 0.00000 0.80000 1.00000" />
+			</material>
+		</visual>
+		<collision>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 -0.02500 0.00000"/>
+			<geometry>
+				<box size="0.12000 0.06000 0.01000"/>
+			</geometry>
+		</collision>
+	</link>
+	<link name="EE">
+		<inertial>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+			<mass value="1.00000"/>
+			<inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+		</inertial>
+		<visual>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+			<geometry>
+				<box size="0.01000 0.01000 0.01000"/>
+			</geometry>
+			<material name="mat_3_0">
+				<color rgba="0.00000 0.00000 0.80000 1.00000" />
+			</material>
+		</visual>
+		<collision>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+			<geometry>
+				<box size="0.00100 0.00100 0.00100"/>
+			</geometry>
+		</collision>
+	</link>
+	<link name="armr1">
+		<inertial>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+			<mass value="0.01590"/>
+			<inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+		</inertial>
+		<visual>
+			<origin rpy="-1.57080 0.00000 -1.57060" xyz="0.00000 0.00000 0.00000"/>
+			<geometry>
+				<mesh filename="models/actuatorBot/meshes/arm1.dae" scale="1.00000 1.00000 1.00000"/>
+			</geometry>
+			<material name="mat_4_0">
+				<color rgba="0.80000 0.00000 0.00000 1.00000" />
+			</material>
+		</visual>
+		<collision>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 -0.02250 0.00000"/>
+			<geometry>
+				<box size="0.00500 0.05000 0.00300"/>
+			</geometry>
+		</collision>
+	</link>
+	<link name="arml3">
+		<inertial>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+			<mass value="0.01590"/>
+			<inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+		</inertial>
+		<visual>
+			<origin rpy="1.57060 -0.00000 -1.57080" xyz="0.00000 0.00000 0.00000"/>
+			<geometry>
+				<mesh filename="models/actuatorBot/meshes/arm1.dae" scale="1.00000 1.00000 1.00000"/>
+			</geometry>
+			<material name="mat_5_0">
+				<color rgba="0.80000 0.00000 0.00000 1.00000" />
+			</material>
+		</visual>
+		<collision>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 -0.02250 0.00000"/>
+			<geometry>
+				<box size="0.00500 0.05000 0.00300"/>
+			</geometry>
+		</collision>
+	</link>
+	<link name="armr3">
+		<inertial>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+			<mass value="0.01590"/>
+			<inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+		</inertial>
+		<visual>
+			<origin rpy="1.57080 0.00000 -1.57080" xyz="0.00000 0.00000 0.00000"/>
+			<geometry>
+				<mesh filename="models/actuatorBot/meshes/arm1.dae" scale="1.00000 1.00000 1.00000"/>
+			</geometry>
+			<material name="mat_6_0">
+				<color rgba="0.80000 0.00000 0.00000 1.00000" />
+			</material>
+		</visual>
+		<collision>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 -0.02250 0.00000"/>
+			<geometry>
+				<box size="0.00500 0.05000 0.00300"/>
+			</geometry>
+		</collision>
+	</link>
+	<link name="carriage2">
+		<inertial>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+			<mass value="0.11600"/>
+			<inertia ixx="0.00001" ixy="0" ixz="0" iyy="0.00014" iyz="0" izz="0.00015"/>
+		</inertial>
+		<visual>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="-0.00250 0.00000 0.00000"/>
+			<geometry>
+				<mesh filename="models/actuatorBot/meshes/carriage.dae" scale="1.00000 1.00000 1.00000"/>
+			</geometry>
+			<material name="mat_7_0">
+				<color rgba="0.00000 0.80000 0.00000 1.00000" />
+			</material>
+		</visual>
+		<collision>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+			<geometry>
+				<box size="0.12000 0.03000 0.01500"/>
+			</geometry>
+		</collision>
+	</link>
+	<link name="arml2">
+		<inertial>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+			<mass value="0.01590"/>
+			<inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+		</inertial>
+		<visual>
+			<origin rpy="1.57060 0.00000 1.57080" xyz="0.00000 0.00000 0.00000"/>
+			<geometry>
+				<mesh filename="models/actuatorBot/meshes/arm1.dae" scale="1.00000 1.00000 1.00000"/>
+			</geometry>
+			<material name="mat_8_0">
+				<color rgba="0.80000 0.00000 0.00000 1.00000" />
+			</material>
+		</visual>
+		<collision>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.02250 0.00000"/>
+			<geometry>
+				<box size="0.00500 0.05000 0.00300"/>
+			</geometry>
+		</collision>
+	</link>
+	<link name="armr2">
+		<inertial>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+			<mass value="0.01590"/>
+			<inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+		</inertial>
+		<visual>
+			<origin rpy="-1.57100 0.00000 1.57080" xyz="0.00000 0.00000 0.00000"/>
+			<geometry>
+				<mesh filename="models/actuatorBot/meshes/arm1.dae" scale="1.00000 1.00000 1.00000"/>
+			</geometry>
+			<material name="mat_9_0">
+				<color rgba="0.80000 0.00000 0.00000 1.00000" />
+			</material>
+		</visual>
+		<collision>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.02250 0.00000"/>
+			<geometry>
+				<box size="0.00500 0.05000 0.00300"/>
+			</geometry>
+		</collision>
+	</link>
+	<link name="arml4">
+		<inertial>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+			<mass value="0.01590"/>
+			<inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+		</inertial>
+		<visual>
+			<origin rpy="-1.57100 0.00000 1.57080" xyz="0.00000 0.00000 0.00000"/>
+			<geometry>
+				<mesh filename="models/actuatorBot/meshes/arm1.dae" scale="1.00000 1.00000 1.00000"/>
+			</geometry>
+			<material name="mat_10_0">
+				<color rgba="0.80000 0.00000 0.00000 1.00000" />
+			</material>
+		</visual>
+		<collision>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.02250 0.00000"/>
+			<geometry>
+				<box size="0.00500 0.05000 0.00300"/>
+			</geometry>
+		</collision>
+	</link>
+	<link name="armr4">
+		<inertial>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+			<mass value="0.01590"/>
+			<inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+		</inertial>
+		<visual>
+			<origin rpy="1.57060 0.00000 1.57080" xyz="0.00000 0.00000 0.00000"/>
+			<geometry>
+				<mesh filename="models/actuatorBot/meshes/arm1.dae" scale="1.00000 1.00000 1.00000"/>
+			</geometry>
+			<material name="mat_11_0">
+				<color rgba="0.80000 0.00000 0.00000 1.00000" />
+			</material>
+		</visual>
+		<collision>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.02250 0.00000"/>
+			<geometry>
+				<box size="0.00500 0.05000 0.00300"/>
+			</geometry>
+		</collision>
+	</link>
+	<joint name="connect1" type="fixed">
+		<parent link="base_window"/>
+		<child link="base1"/>
+		<dynamics damping="1.0" friction="0.0001"/>
+		<origin rpy="0.00000 -0.00000 0.00000" xyz="0.09000 0.00000 0.80000"/>
+		<axis xyz="0.00000 0.00000 0.00000"/>
+	</joint>
+	<joint name="connect2" type="fixed">
+		<parent link="base_window"/>
+		<child link="base2"/>
+		<dynamics damping="1.0" friction="0.0001"/>
+		<origin rpy="0.00000 -0.00000 0.00000" xyz="-0.09000 0.00000 0.80000"/>
+		<axis xyz="0.00000 0.00000 0.00000"/>
+	</joint>
+	<joint name="joint_dummy1" type="continuous">
+		<parent link="base_window"/>
+		<child link="base_link"/>
+		<dynamics damping="1.0" friction="0.0001"/>
+		<origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+		<axis xyz="0.00000 0.00000 1.00000"/>
+	</joint>
+	<joint name="base_to_carriage1" type="prismatic">
+		<parent link="base_link"/>
+		<child link="carriage1"/>
+<limit effort="1000.0" lower="-0.50000" upper="0.50000" velocity="0.5"/>		<dynamics damping="1.0" friction="0.0001"/>
+		<origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.04500 0.00750"/>
+		<axis xyz="0.00000 1.00000 0.00000"/>
+	</joint>
+	<joint name="carriage1_to_arml1" type="continuous">
+		<parent link="carriage1"/>
+		<child link="arml1"/>
+		<dynamics damping="1.0" friction="0.0001"/>
+		<origin rpy="-0.78540 0.00000 0.00000" xyz="0.06250 0.00800 0.00000"/>
+		<axis xyz="1.00000 0.00000 0.00000"/>
+	</joint>
+	<joint name="arml1_to_middle" type="continuous">
+		<parent link="arml1"/>
+		<child link="middle"/>
+		<dynamics damping="1.0" friction="0.0001"/>
+		<origin rpy="0.78540 -0.00000 0.00000" xyz="-0.06250 -0.04500 0.00000"/>
+		<axis xyz="1.00000 0.00000 0.00000"/>
+	</joint>
+	<joint name="middle_to_EE" type="continuous">
+		<parent link="middle"/>
+		<child link="EE"/>
+		<dynamics damping="1.0" friction="0.0001"/>
+		<origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 -0.02500 0.00500"/>
+		<axis xyz="0.00000 0.00000 1.00000"/>
+	</joint>
+	<joint name="carriage1_to_armr1" type="continuous">
+		<parent link="carriage1"/>
+		<child link="armr1"/>
+		<dynamics damping="1.0" friction="0.0001"/>
+		<origin rpy="-0.78540 0.00000 0.00000" xyz="-0.06250 0.00800 0.00000"/>
+		<axis xyz="1.00000 0.00000 0.00000"/>
+	</joint>
+	<joint name="carriage1_to_arml3" type="continuous">
+		<parent link="carriage1"/>
+		<child link="arml3"/>
+		<dynamics damping="1.0" friction="0.0001"/>
+		<origin rpy="-0.78540 0.00000 0.00000" xyz="0.06250 -0.00800 0.00000"/>
+		<axis xyz="1.00000 0.00000 0.00000"/>
+	</joint>
+	<joint name="carriage1_to_armr3" type="continuous">
+		<parent link="carriage1"/>
+		<child link="armr3"/>
+		<dynamics damping="1.0" friction="0.0001"/>
+		<origin rpy="-0.78540 0.00000 0.00000" xyz="-0.06250 -0.00800 0.00000"/>
+		<axis xyz="1.00000 0.00000 0.00000"/>
+	</joint>
+	<joint name="base_to_carriage2" type="prismatic">
+		<parent link="base_link"/>
+		<child link="carriage2"/>
+<limit effort="1000.0" lower="-0.50000" upper="0.50000" velocity="0.5"/>		<dynamics damping="1.0" friction="0.0001"/>
+		<origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 -0.04500 0.00750"/>
+		<axis xyz="0.00000 1.00000 0.00000"/>
+	</joint>
+	<joint name="carriage2_to_arml2" type="continuous">
+		<parent link="carriage2"/>
+		<child link="arml2"/>
+		<dynamics damping="1.0" friction="0.0001"/>
+		<origin rpy="0.78540 -0.00000 0.00000" xyz="0.06250 0.00800 0.00000"/>
+		<axis xyz="1.00000 0.00000 0.00000"/>
+	</joint>
+	<joint name="carriage2_to_armr2" type="continuous">
+		<parent link="carriage2"/>
+		<child link="armr2"/>
+		<dynamics damping="1.0" friction="0.0001"/>
+		<origin rpy="0.78540 -0.00000 0.00000" xyz="-0.06250 -0.00800 0.00000"/>
+		<axis xyz="1.00000 0.00000 0.00000"/>
+	</joint>
+	<joint name="carriage2_to_arml4" type="continuous">
+		<parent link="carriage2"/>
+		<child link="arml4"/>
+		<dynamics damping="1.0" friction="0.0001"/>
+		<origin rpy="0.78540 -0.00000 0.00000" xyz="0.06250 -0.00800 0.00000"/>
+		<axis xyz="1.00000 0.00000 0.00000"/>
+	</joint>
+	<joint name="carriage2_to_armr4" type="continuous">
+		<parent link="carriage2"/>
+		<child link="armr4"/>
+		<dynamics damping="1.0" friction="0.0001"/>
+		<origin rpy="0.78540 -0.00000 0.00000" xyz="-0.06250 0.00800 0.00000"/>
+		<axis xyz="1.00000 0.00000 0.00000"/>
+	</joint>
+</robot>
